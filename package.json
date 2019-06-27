@@ -2,6 +2,31 @@
   "name": "atomic-react-redux",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "check-staged": "lint-staged",
+    "lint": "eslint src -c .eslintrc --ext js,jsx",
+    "lint:fix": "eslint src -c .eslintrc --fix . --ext js,jsx",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test  --verbose --watchAll=false --forceExit",
+    "test:watch": "react-scripts test",
+    "test:update": "react-scripts test --updateSnapshot",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "eject": "react-scripts eject",
+    "husky:commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+    "husky:post-checkout": "lint-staged",
+    "husky:pre-commit": " npm run test && lint-staged",
+    "husky:pre-push": "npm run lint & npm run test -a",
+    "eslint-check": "eslint --print-config . | eslint-config-prettier-check"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "npm run husky:commit-msg",
+      "post-checkout": "npm run husky:post-checkout",
+      "pre-commit": "npm run husky:pre-commit",
+      "pre-push": "npm run husky:pre-push"
+    }
+  },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
     "@redux-saga/testing-utils": "^1.0.3",
@@ -30,14 +55,45 @@
     "styled-theme": "^0.3.3",
     "yup": "^0.27.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@commitlint/cli": "^7.6.1",
+    "@commitlint/config-conventional": "^7.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.11.0",
+    "faker": "^4.1.0",
+    "husky": "^2.3.0",
+    "jest-styled-components": "^6.3.3",
+    "lint-staged": "^8.1.7",
+    "prettier": "^1.17.1",
+    "react-test-renderer": "^16.8.6"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/components/**/*.{js,jsx,ts,tsx}"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "npm run lint:fix",
+      "git add ."
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "browserslist": {
     "production": [
