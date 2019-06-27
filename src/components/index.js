@@ -1,4 +1,6 @@
-const req = require.context('.', true, /\.\/[^/]+\/[^/]+\/index\.js$/);
+import requireContext from 'require-context.macro';
+
+const req = requireContext('.', true, /\.\/[^/]+\/[^/]+\/index\.js$/);
 
 req.keys().forEach(key => {
   const componentName = key.replace(/^.+\/([^/]+)\/index\.js/, '$1');

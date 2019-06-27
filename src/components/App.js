@@ -1,12 +1,15 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import Atom from 'components/atoms/Atom';
+import { Switch, Route } from 'react-router-dom';
+import { MainPage } from 'components';
 import theme from './themes/default';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Atom>Hello world</Atom>
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+      </Switch>
     </ThemeProvider>
   );
 }
