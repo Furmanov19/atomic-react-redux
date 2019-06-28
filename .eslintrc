@@ -11,7 +11,8 @@
     "prettier/prettier": "warn",
     "max-len": ["warn", 80],
     "no-unused-vars": "warn",
-    "import/named": 0
+    "import/named": 0,
+    "no-shadow": 0
   },
   "env": {
     "browser": true
